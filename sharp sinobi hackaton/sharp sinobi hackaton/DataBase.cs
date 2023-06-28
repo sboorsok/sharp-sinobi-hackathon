@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using sharp_sinobi_hackaton.Models;
 using Dapper;
+using System.Runtime.ConstrainedExecution;
 
 namespace sharp_sinobi_hackaton
 {
@@ -41,13 +42,63 @@ namespace sharp_sinobi_hackaton
             }
         }
 
-        public async Task ChangeStatus(long id)
+        public async Task ChangeStatus(Tasks task_1)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "DELETE FROM ToDoBase WHERE Id = @Id";
-                await connection.ExecuteAsync(query, new { Id = id });
+                var query = "UPDATE ToDoBase SET Priority = @Priority";
+                await connection.ExecuteAsync(query, task_1);
+            }
+        }
+
+        public async Task<IEnumerable<Tasks>> GetAllTasks()
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM ToDoBase";
+                return await connection.QueryAsync<Tasks>(query);
+            }
+        }
+
+        public async Task EditTask(Tasks task_1)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "UPDATE ToDoBase SET Name = @Name, Description = @Description, Date = @Date, Priority = @Priority, Status = @Status WHERE Id = @Id";
+                await connection.ExecuteAsync(query, task_1);
+            }
+        }
+
+        public async Task<IEnumerable<Tasks>> GetSortedTasksByDate()
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM ToDoBase ORDER BY Date";
+                return await connection.QueryAsync<Tasks>(query);
+            }
+        }
+
+        public async Task<IEnumerable<Tasks>> GetSortedTasksByPriority()
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM ToDoBase ORDER BY Priority";
+                return await connection.QueryAsync<Tasks>(query);
+            }
+        }
+
+        public async Task<IEnumerable<Tasks>> GetTasksByDate()
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM ToDoBase WHERE BETWEEN '2023-06-01' AND '2023-06-30'";
+                return await connection.QueryAsync<Tasks>(query);
             }
         }
 

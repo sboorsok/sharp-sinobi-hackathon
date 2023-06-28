@@ -23,13 +23,8 @@ namespace sharp_sinobi_hackaton
         {
             using var connection = new SqlConnection(connectionString);
             connection.Open();
-            var sql = $@"
-                        INSERT INTO Tasks 
-                        ([Name], [Description], [Date], [Priority], [Status])
-                        VALUES 
-                        (N'{task_1.Name}', N'{task_1.Description}', {task_1.Date}, {task_1.Priority}, {task_1.Status})
-                        ";
-            var tec_1 = await connection.ExecuteAsync(sql);
+            var sql = "INSERT INTO Tasks (Name, Description, Date, Priority, Status) VALUES (@Name, @Description, @Date, @Priority, @Status)";
+            var tec_1 = await connection.ExecuteAsync(sql, task_1);
         } // Создаем Задачу в бд, принимая объект класса Tasks
 
         public async Task DeleteTask(long id)

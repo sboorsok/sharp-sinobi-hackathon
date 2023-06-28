@@ -31,6 +31,26 @@ namespace sharp_sinobi_hackaton
             var tec_1 = await connection.ExecuteAsync(sql);
         } // Создаем Задачу в бд, принимая объект класса Tasks
 
+        public async Task DeleteTask(long id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "DELETE FROM ToDoBase WHERE Id = @Id";
+                await connection.ExecuteAsync(query, new { Id = id });
+            }
+        }
+
+        public async Task ChangeStatus(long id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "DELETE FROM ToDoBase WHERE Id = @Id";
+                await connection.ExecuteAsync(query, new { Id = id });
+            }
+        }
+
 
     }
 }

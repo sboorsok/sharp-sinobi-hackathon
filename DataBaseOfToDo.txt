@@ -1,0 +1,11 @@
+CREATE  DATABASE ToDoBase
+
+CREATE TABLE Tasks  
+(
+  [Id]				 BIGINT IDENTITY NOT NULL,  
+  [Name]			 NVARCHAR(200)  NOT NULL,  
+  [Description]		 NVARCHAR(3000),    
+  [Date]			 DATETIME2 NOT NULL,
+  [Priority]		 BIT NOT NULL,
+  [Status]			 TINYINT NOT NULL
+);

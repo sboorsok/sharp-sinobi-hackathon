@@ -13,7 +13,7 @@ namespace sharp_sinobi_hackaton.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public bool Priority { get; set; }
+        public Prority Priority { get; set; }
         public Status Status { get; set; }
 
 

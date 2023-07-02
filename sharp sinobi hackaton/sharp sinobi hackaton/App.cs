@@ -31,7 +31,8 @@ namespace sharp_sinobi_hackaton
             Console.WriteLine("3. Изменить задачу");
             Console.WriteLine("4. Отсортировать задачи");
             Console.WriteLine("5. Изменить статус задачи");
-            Console.WriteLine("0. Показать задачи за период");
+            Console.WriteLine("6. Показать задачи за период");
+            Console.WriteLine("0. Выход");
 
             bool exit = false;
             while (!exit)

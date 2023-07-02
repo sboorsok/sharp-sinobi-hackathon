@@ -197,8 +197,19 @@ namespace sharp_sinobi_hackaton
                 Console.WriteLine($"Id[{task.Id}] Задача:{task.Name}, Статус: {task.Status}");
             }
             int id = int.Parse(Console.ReadLine());
-            await database.DeleteTask(id);
-            Console.WriteLine("Задача была удалена успешно!");
+            try
+            {
+                await database.DeleteTask(id);
+
+            }
+            catch (NullReferenceException e)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Задача была удалена успешно!");
+            }
         }
 
         public async Task GetSortByPriorityConsole() // добавил вывод в консоль метод сортировки по приоритету 

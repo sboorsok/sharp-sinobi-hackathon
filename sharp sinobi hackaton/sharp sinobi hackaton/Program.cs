@@ -1,11 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using System.Diagnostics;
 using sharp_sinobi_hackaton;
-using sharp_sinobi_hackaton.StaticHelper;
 
-namespace EXAM_MARK1
-{
+
+
     internal class Program
     {
         static async Task Main(string[] args)
@@ -15,21 +13,15 @@ namespace EXAM_MARK1
             connection.Open();
 
             var database = new DataBase(connectionString);
-            var task_1 = Helper.CreateTasksObject();
-            await database.CreateNewTask(task_1);
 
 
-
-            //var app = new App(database);
-
-            //await app.Start();
-
+            var app = new App(database);
+            await app.ConvertToJson();
 
         }
 
 
     }
-}
 
 
 

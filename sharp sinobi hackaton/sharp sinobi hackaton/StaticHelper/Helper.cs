@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using sharp_sinobi_hackaton.Models;
 using sharp_sinobi_hackaton.Enums;
+using Microsoft.Data.SqlClient;
 
 namespace sharp_sinobi_hackaton.StaticHelper
 {
@@ -44,5 +45,7 @@ namespace sharp_sinobi_hackaton.StaticHelper
             return new Tasks(task_name, task_description, task_date, task_priority, task_status);
 
         }
+
+       
     }
 }

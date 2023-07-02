@@ -42,7 +42,7 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "UPDATE ToDoBase SET Priority = @Priority";
+                var query = "UPDATE ToDoBase SET Status = @Status";
                 await connection.ExecuteAsync(query, task_1);
             }
         }
@@ -52,7 +52,7 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "SELECT * FROM ToDoBase";
+                var query = "SELECT * FROM Tasks";
                 return await connection.QueryAsync<Tasks>(query);
             }
         }
@@ -97,6 +97,16 @@ namespace sharp_sinobi_hackaton
             }
         }
 
+        public async Task<Tasks> GetTaskFromDatabase(int taskId)   // это метод вспомогательный, ЕГО НЕ НУЖНО РЕАЛИЗОЫВАТЬ 
+        {                                                          // в калссе АПП
+            using (var connection = new SqlConnection(connectionString)) // он помогает при работе остальных методов 
+            {
+                connection.Open();
+                var sql = "SELECT * FROM Tasks WHERE Id = @TaskId";
+                var parameters = new { TaskId = taskId };
+                return await connection.QueryFirstOrDefaultAsync<Tasks>(sql, parameters);
+            }
+        }
 
     }
 }

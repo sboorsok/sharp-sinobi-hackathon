@@ -71,7 +71,7 @@ namespace sharp_sinobi_hackaton
                         await DeleteCar();  // нужно вставить свой метод
                         break;
                     case ConsoleKey.D6:
-                        await DeleteCar();  // нужно вставить свой метод
+                        await DeleteTaskConsole();  // нужно вставить свой метод
                         break;
                     case ConsoleKey.D0:
                         exit = true;
@@ -186,6 +186,43 @@ namespace sharp_sinobi_hackaton
             await database.EditTask(changeTask);
             Console.WriteLine("Задача была изменена успешно!");
         }
+
+        public async Task DeleteTaskConsole() // добавил вывод в консоль метод удаления задачи
+        {
+            Console.Clear();
+            Console.WriteLine("Выберите ID задачи для удаления: ");
+            var tasks = await database.GetAllTasks();
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"Id[{task.Id}] Задача:{task.Name}, Статус: {task.Status}");
+            }
+            int id = int.Parse(Console.ReadLine());
+            await database.DeleteTask(id);
+            Console.WriteLine("Задача была удалена успешно!");
+        }
+
+        public async Task GetSortByPriorityConsole() // добавил вывод в консоль метод сортировки по приоритету 
+        {
+            Console.Clear();
+            Console.WriteLine("Задачи сортированные по приоритету: ");
+            var tasks = await database.GetSortedTasksByPriority();
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"Название: {task.Name},  Описание: {task.Description},   Дедлайн: {task.Date},   Приоритет: {(Priority)task.Priority},    Статус: {(Status)task.Status} ");
+            }
+        }
+
+        public async Task GetSortByStatusConsole()  // добавил вывод в консоль метод сортировки по статусу 
+        {
+            Console.Clear();
+            Console.WriteLine("Задачи сортированные по статусу: ");
+            var tasks = await database.GetSortedTasksByStatus();
+            foreach (var task in tasks)
+            {
+                Console.WriteLine($"Название: {task.Name},  Описание: {task.Description},   Дедлайн: {task.Date},   Приоритет: {(Priority)task.Priority},    Статус: {(Status)task.Status} ");
+            }
+        }
+
 
     }
 }

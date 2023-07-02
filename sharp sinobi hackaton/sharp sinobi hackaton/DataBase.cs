@@ -34,7 +34,7 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "DELETE FROM ToDoBase WHERE Id = @Id";
+                var query = "DELETE FROM Tasks WHERE Id = @Id";
                 await connection.ExecuteAsync(query, new { Id = id });
             }
         }
@@ -74,7 +74,7 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "SELECT * FROM ToDoBase ORDER BY Date";
+                var query = "SELECT * FROM Tasks ORDER BY Date";
                 return await connection.QueryAsync<Tasks>(query);
             }
         }
@@ -84,7 +84,17 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "SELECT * FROM ToDoBase ORDER BY Priority";
+                var query = "SELECT * FROM Tasks ORDER BY Priority";
+                return await connection.QueryAsync<Tasks>(query);
+            }
+        }
+
+        public async Task<IEnumerable<Tasks>> GetSortedTasksByStatus() //добавил метод сортировки по статусу
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM Tasks ORDER BY Status";
                 return await connection.QueryAsync<Tasks>(query);
             }
         }

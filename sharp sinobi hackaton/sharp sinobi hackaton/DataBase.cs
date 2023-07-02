@@ -62,7 +62,7 @@ namespace sharp_sinobi_hackaton
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "UPDATE ToDoBase SET Name = @Name, Description = @Description, Date = @Date, Priority = @Priority, Status = @Status WHERE Id = @Id";
+                var query = "UPDATE Tasks SET Name = @Name, Description = @Description, Date = @Date, Priority = @Priority, Status = @Status WHERE Id = @Id";
                 await connection.ExecuteAsync(query, task_1);
             }
         }

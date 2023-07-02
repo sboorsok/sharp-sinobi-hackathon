@@ -21,6 +21,57 @@ namespace sharp_sinobi_hackaton
         {
             this.database = database;
         }
+
+        public async Task Start()
+        {
+            Console.WriteLine("Менеджер задач");
+            Console.WriteLine("---------------------");
+            Console.WriteLine("1. Добавить новую задачу");
+            Console.WriteLine("2. Показать все задачи");
+            Console.WriteLine("3. Изменить задачу");
+            Console.WriteLine("4. Отсортировать задачи");
+            Console.WriteLine("5. Изменить статус задачи");
+            Console.WriteLine("0. Показать задачи за период");
+
+            bool exit = false;
+            while (!exit)
+            {
+                Console.WriteLine();
+                Console.Write("Выберите действие: ");
+                var key = Console.ReadKey().Key;
+                Console.WriteLine();
+
+                switch (key)
+                {
+                    case ConsoleKey.D1:
+                        await GetMenu(); // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D2:
+                        await GetCar();  // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D3:
+                        await AddCar();  // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D4:
+                        await UpdateCar();  // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D5:
+                        await DeleteCar();  // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D0:
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Неверная команда. Попробуйте снова.");
+                        break;
+                }
+            }
+        }
+
+
+
+
+
         public async Task ChangeStatusConsole()
         {
             Console.WriteLine("Выберите ID задачи: ");
@@ -33,6 +84,7 @@ namespace sharp_sinobi_hackaton
                 case 1: 
                     task_1.Status = Status.Done; break;
                 case 2:
+
                     task_1.Status = Status.InProcess; break;
                 case 3:
                     task_1.Status = Status.Overdue; break;

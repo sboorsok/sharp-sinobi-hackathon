@@ -9,6 +9,10 @@ using sharp_sinobi_hackaton.Enums;
 using Newtonsoft.Json;
 using System.Threading;
 using System.Globalization;
+<<<<<<< HEAD
+=======
+using System.Runtime.ConstrainedExecution;
+>>>>>>> e807404b85803bf0728d79a612197785510cdb1f
 
 // ...
 
@@ -46,11 +50,17 @@ namespace sharp_sinobi_hackaton
                 switch (key)
                 {
                     case ConsoleKey.D1:
-                        await GetMenu(); // нужно вставить свой метод
+                        await CreateTasksObject(); // нужно вставить свой метод
                         break;
+
                     case ConsoleKey.D2:
                         await GetAllTaskConsole(); // показать все задачи
                         break;
+
+                /*    case ConsoleKey.D2:
+                        await GetCar();  // нужно вставить свой метод
+                        break; */
+
                     case ConsoleKey.D3:
                         await EditTaskConsole();  // нужно вставить свой метод
                         break;
@@ -58,6 +68,9 @@ namespace sharp_sinobi_hackaton
                         await UpdateCar();  // нужно вставить свой метод
                         break;
                     case ConsoleKey.D5:
+                        await DeleteCar();  // нужно вставить свой метод
+                        break;
+                    case ConsoleKey.D6:
                         await DeleteCar();  // нужно вставить свой метод
                         break;
                     case ConsoleKey.D0:
@@ -68,6 +81,37 @@ namespace sharp_sinobi_hackaton
                         break;
                 }
             }
+        }
+
+        public async Task CreateTasksObject()  //([Name], [Description], [Date], [Priority], [Status])
+        {
+            Console.WriteLine("Напишите название вашей задачи: ");
+            string task_name = Console.ReadLine();
+            Console.WriteLine("Опишите вашу задачу");
+            string task_description = Console.ReadLine();
+            Console.WriteLine("Добавьте дату выполнения в формате: dd/MM/yyyy HH:mm");
+            string dateTime = Console.ReadLine(); //"28/06/2023 10:30:00"
+            DateTime task_date = DateTime.ParseExact(dateTime, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+
+            Console.WriteLine("Выберите приоритетность задачи: 1 = Низкий, 2 = Средний, 3 = Высокий");
+
+            var task_priority = (Priority)Convert.ToInt32(Console.ReadLine());
+
+            var task_status = Status.InProcess; // дефолтное состояние статуса
+
+            var newTask = new Tasks
+            {
+                Name = task_name,
+                Description = task_description,
+                Date = task_date,
+                Priority = task_priority,
+                Status = task_status,
+            };
+
+            await database.CreateNewTask(newTask);
+
+            Console.WriteLine("Задача успешно добавлена.");
+
         }
 
 

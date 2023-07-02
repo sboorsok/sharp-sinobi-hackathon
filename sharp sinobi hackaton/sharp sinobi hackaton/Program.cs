@@ -14,9 +14,9 @@ using sharp_sinobi_hackaton;
 
             var database = new DataBase(connectionString);
 
-
             var app = new App(database);
-            await app.ConvertToJson();
+
+            await app.Start();
 
         }
 

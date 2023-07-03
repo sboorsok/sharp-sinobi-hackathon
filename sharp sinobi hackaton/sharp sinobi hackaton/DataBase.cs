@@ -39,13 +39,13 @@ namespace sharp_sinobi_hackaton
             }
         }
 
-        public async Task ChangeStatus(Tasks task_1)
+        public async Task ChangeStatus(int taskId, int newStatus)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "UPDATE ToDoBase SET Status = @Status";
-                await connection.ExecuteAsync(query, task_1);
+                var query = "UPDATE Tasks SET Status = @NewStatus WHERE Id = @TaskId";
+                await connection.ExecuteAsync(query, new { NewStatus = newStatus, TaskId = taskId });
             }
         }
 
@@ -65,7 +65,15 @@ namespace sharp_sinobi_hackaton
             {
                 connection.Open();
                 var query = "UPDATE Tasks SET Name = @Name, Description = @Description, Date = @Date, Priority = @Priority, Status = @Status WHERE Id = @Id";
-                await connection.ExecuteAsync(query, task_1);
+                await connection.ExecuteAsync(query, new
+                {
+                    task_1.Name,
+                    task_1.Description,
+                    task_1.Date,
+                    task_1.Priority,
+                    task_1.Status,
+                    task_1.Id
+                });
             }
         }
 
@@ -120,5 +128,17 @@ namespace sharp_sinobi_hackaton
             }
         }
 
+        public async Task<IEnumerable<Tasks>> GetSortedTasksByDate(DateTime date)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+
+                var query = "SELECT * FROM Tasks Where Date = @Date ORDER BY Date";
+
+                return await connection.QueryAsync<Tasks>(query, date);
+            }
+        }
     }
 }

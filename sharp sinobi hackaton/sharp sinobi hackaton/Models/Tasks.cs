@@ -29,6 +29,15 @@ namespace sharp_sinobi_hackaton.Models
             Priority = priority;
             Status = status;
         }
+        public Tasks(int id, string name, string description, DateTime date, Priority priority, Status status)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Date = date;
+            Priority = priority;
+            Status = status;
+        }
     }
 
 
